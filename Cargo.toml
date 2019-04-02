@@ -1,0 +1,11 @@
+[package]
+name = "osu_map_recommendation_engine"
+version = "0.1.0"
+authors = ["NecroTechno <necrotechno@riseup.net>"]
+edition = "2018"
+
+[dependencies]
+reqwest = "0.9.12"
+serde_json = "1.0.39"
+serde_derive = "1.0.89"
+serde = "1.0.89"
