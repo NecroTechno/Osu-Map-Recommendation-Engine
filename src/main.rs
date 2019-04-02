@@ -1,3 +1,4 @@
+extern crate chrono;
 extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
@@ -5,44 +6,15 @@ extern crate serde_json;
 #[macro_use]
 extern crate serde_derive;
 
-use std::collections::HashMap;
+mod structs;
 
-#[derive(Serialize, Deserialize, Debug)]
-struct Beatmap {
-    beatmapset_id: String,
-    beatmap_id: String,
-    approved: String,
-    total_length: String,
-    hit_length: String,
-    version: String,
-    file_md5: String,
-    diff_size: String,
-    diff_overall: String,
-    diff_approach: String,
-    diff_drain: String,
-    mode: String,
-    approved_date: Option<String>,
-    last_update: String,
-    artist: String,
-    title: String,
-    creator: String,
-    creator_id: String,
-    bpm: String,
-    source: String,
-    tags: String,
-    genre_id: String,
-    language_id: String,
-    favourite_count: String,
-    playcount: String,
-    passcount: String,
-    max_combo: String,
-    difficultyrating: String,
-}
+use self::structs::Beatmap;
 
 fn process_beatmaps(mut res: reqwest::Response) -> Vec<Beatmap> {
-    let beatmaps : Vec<Beatmap> = res.json().unwrap();
+    let res_content: String = res.text().unwrap();
+    let beatmaps: Vec<Beatmap> = serde_json::from_str(&res_content).unwrap();
     for elem in beatmaps.iter() {
-       println!("{:?}", elem);
+        println!("{:?}", elem);
     }
     return beatmaps;
 }
