@@ -76,3 +76,36 @@ pub struct Beatmap {
     #[serde(deserialize_with = "from_str")]
     difficultyrating: f32,
 }
+
+#[derive(Deserialize, PartialEq, Debug)]
+pub struct UserBestScore {
+    #[serde(deserialize_with = "from_str")]
+    beatmap_id: u32,
+    #[serde(deserialize_with = "from_str")]
+    score: u64,
+    #[serde(deserialize_with = "from_str")]
+    maxcombo: u32,
+    #[serde(deserialize_with = "from_str")]
+    count50: u32,
+    #[serde(deserialize_with = "from_str")]
+    count100: u32,
+    #[serde(deserialize_with = "from_str")]
+    count300: u32,
+    #[serde(deserialize_with = "from_str")]
+    countmiss: u32,
+    #[serde(deserialize_with = "from_str")]
+    countkatu: u32,
+    #[serde(deserialize_with = "from_str")]
+    countgeki: u32,
+    #[serde(deserialize_with = "from_str")]
+    perfect: u32,
+    #[serde(deserialize_with = "from_str")]
+    enabled_mods: u16,
+    #[serde(deserialize_with = "from_str")]
+    user_id: u32,
+    #[serde(deserialize_with = "from_str_date")]
+    date: DateTime<Utc>,
+    rank: String,
+    #[serde(deserialize_with = "from_str")]
+    pp: f32
+}
