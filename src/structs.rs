@@ -1,4 +1,4 @@
-use chrono::{DateTime, Utc, TimeZone};
+use chrono::{DateTime, TimeZone, Utc};
 use std::fmt::Display;
 use std::str::FromStr;
 
@@ -80,7 +80,7 @@ pub struct Beatmap {
 #[derive(Deserialize, PartialEq, Debug)]
 pub struct UserBestScore {
     #[serde(deserialize_with = "from_str")]
-    beatmap_id: u32,
+    pub beatmap_id: u32,
     #[serde(deserialize_with = "from_str")]
     score: u64,
     #[serde(deserialize_with = "from_str")]
@@ -107,5 +107,5 @@ pub struct UserBestScore {
     date: DateTime<Utc>,
     rank: String,
     #[serde(deserialize_with = "from_str")]
-    pp: f32
+    pp: f32,
 }

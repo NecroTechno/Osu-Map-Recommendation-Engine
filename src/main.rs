@@ -9,33 +9,10 @@ extern crate serde_derive;
 #[macro_use]
 extern crate text_io;
 
+mod commands;
 mod structs;
 
-use std::process;
-use self::structs::Beatmap;
-
-fn exit_with_message(message: &str) {
-    println!("{}", message);
-    process::exit(1);
-}
-
-fn process_beatmaps(mut res: reqwest::Response) -> Vec<Beatmap> {
-    let res_content: String = res.text().unwrap();
-    let beatmaps: Vec<Beatmap> = serde_json::from_str(&res_content).unwrap();
-    for elem in beatmaps.iter() {
-        println!("{:?}", elem);
-    }
-    return beatmaps;
-}
-
-fn confirm_user(mut res: reqwest::Response) {
-    let res_content: String = res.text().unwrap();
-    let empty_match: String;
-    match res_content.as_str() {
-        "[]" => exit_with_message("User not found."),
-        _ => (),
-    };
-}
+use self::commands::{confirm_user, exit_with_message, process_beatmaps, process_user_best};
 
 /*
 let request_uri = concat!(
@@ -48,17 +25,30 @@ let request_uri = concat!(
 fn main() {
     println!("Please enter your username.");
     let username: String = read!();
-    let request_uri = format!(
+    let user_request_uri = format!(
         "https://osu.ppy.sh/api/get_user?k={}&u={}",
         env!("OSU_API_KEY"),
         &username
     );
 
-    let res = reqwest::get(&request_uri);
+    let user_res = reqwest::get(&user_request_uri);
     // let mut beatmaps: Vec<Beatmap>;
 
-    match res {
+    match user_res {
         Ok(response) => confirm_user(response),
         Err(e) => exit_with_message("Network error."),
     };
+
+    let user_best_uri = format!(
+        "https://osu.ppy.sh/api/get_user_best?k={}&u={}",
+        env!("OSU_API_KEY"),
+        &username
+    );
+
+    let user_best_res = reqwest::get(&user_best_uri);
+
+    match user_best_res {
+        Ok(response) => process_user_best(response),
+        Err(e) => exit_with_message("Network error."),
+    }
 }
