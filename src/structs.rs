@@ -25,7 +25,7 @@ where
         .map_err(serde::de::Error::custom)
 }
 
-#[derive(Deserialize, PartialEq, Debug)]
+#[derive(Deserialize, PartialEq, Debug, Clone)]
 pub struct Beatmap {
     #[serde(deserialize_with = "from_str")]
     beatmapset_id: u32,

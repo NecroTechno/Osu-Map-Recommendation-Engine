@@ -12,7 +12,7 @@ extern crate text_io;
 mod commands;
 mod structs;
 
-use self::commands::{confirm_user, exit_with_message, process_beatmaps, process_user_best};
+use self::commands::{confirm_user, exit_with_message, process_user_best};
 
 /*
 let request_uri = concat!(
@@ -36,7 +36,7 @@ fn main() {
 
     match user_res {
         Ok(response) => confirm_user(response),
-        Err(e) => exit_with_message("Network error."),
+        Err(_e) => exit_with_message("Network error."),
     };
 
     let user_best_uri = format!(
@@ -49,6 +49,6 @@ fn main() {
 
     match user_best_res {
         Ok(response) => process_user_best(response),
-        Err(e) => exit_with_message("Network error."),
+        Err(_e) => exit_with_message("Network error."),
     }
 }
