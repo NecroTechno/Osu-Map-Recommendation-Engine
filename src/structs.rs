@@ -30,7 +30,7 @@ pub struct Beatmap {
     #[serde(deserialize_with = "from_str")]
     beatmapset_id: u32,
     #[serde(deserialize_with = "from_str")]
-    beatmap_id: u32,
+    pub beatmap_id: u32,
     #[serde(deserialize_with = "from_str")]
     approved: i8,
     #[serde(deserialize_with = "from_str")]
@@ -40,26 +40,26 @@ pub struct Beatmap {
     version: String,
     file_md5: String,
     #[serde(deserialize_with = "from_str")]
-    diff_size: u8,
+    diff_size: f32,
     #[serde(deserialize_with = "from_str")]
-    diff_overall: u8,
+    diff_overall: f32,
     #[serde(deserialize_with = "from_str")]
-    diff_approach: u8,
+    diff_approach: f32,
     #[serde(deserialize_with = "from_str")]
-    diff_drain: u8,
+    diff_drain: f32,
     #[serde(deserialize_with = "from_str")]
-    mode: u8,
+    pub mode: u8,
     approved_date: Option<String>,
     #[serde(deserialize_with = "from_str_date")]
     last_update: DateTime<Utc>,
     artist: String,
-    title: String,
+    pub title: String,
     creator: String,
     #[serde(deserialize_with = "from_str")]
     creator_id: u32,
     #[serde(deserialize_with = "from_str")]
     bpm: f32,
-    source: String,
+    source: Option<String>,
     tags: String,
     #[serde(deserialize_with = "from_str")]
     genre_id: u16,
@@ -71,10 +71,9 @@ pub struct Beatmap {
     playcount: u64,
     #[serde(deserialize_with = "from_str")]
     passcount: u64,
+    max_combo: Option<String>,
     #[serde(deserialize_with = "from_str")]
-    max_combo: u32,
-    #[serde(deserialize_with = "from_str")]
-    difficultyrating: f32,
+    pub difficultyrating: f32,
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
